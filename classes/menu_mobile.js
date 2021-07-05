@@ -18,7 +18,7 @@ export default class Menu {
 
     adicionarCadaClasse() {
         this.itensMenu.forEach(iten => {
-            iten.classList.add('ativo');
+            iten.classList.toggle('ativo');
         });
 
         this.cliqueFora();
