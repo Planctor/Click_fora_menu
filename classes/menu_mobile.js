@@ -2,18 +2,21 @@ export default class Menu {
     constructor(menu) {
         this.menu = document.querySelector(menu)
         this.itensMenu = [...this.menu.children]
+        this.html = document.documentElement
+    }
+
+    remover(e) {
+        e.preventDefault();
+        if (this.itensMenu[0] !== e.target && this.itensMenu[2] !== e.target && this.itensMenu[1] !== e.target) {
+            this.itensMenu.forEach(iten => {
+                iten.classList.remove('ativo');
+            });
+            this.html.removeEventListener('click', this.remover)
+        }
     }
 
     cliqueFora() {
-        const html = document.documentElement
-        html.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (this.itensMenu[0] !== e.target && this.itensMenu[2] !== e.target && this.itensMenu[1] !== e.target) {
-                this.itensMenu.forEach(iten => {
-                    iten.classList.remove('ativo');
-                });
-            }
-        })
+        this.html.addEventListener('click', this.remover)
     }
 
     adicionarCadaClasse() {
@@ -27,13 +30,13 @@ export default class Menu {
     adicionarClasseEvento() {
         this.itensMenu.forEach(iten => {
             iten.addEventListener('click', this.adicionarCadaClasse)
-            iten.addEventListener('touchstart', this.adicionarCadaClasse)
         })
     }
 
     bindItens() {
         this.cliqueFora = this.cliqueFora.bind(this);
         this.adicionarCadaClasse = this.adicionarCadaClasse.bind(this);
+        this.remover = this.remover.bind(this)
     }
 
     init() {
