@@ -2,14 +2,16 @@ const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
+const css = require('gulp-uglifycss')
 
 function adicionar() {
-    return gulp.src('/style/style.css')
+    return gulp.src('./style/style.css')
+        .pipe(css())
         .pipe(autoprefixer({
             cascade: false,
             browsers: ['last 2 versions']
         }))
-        .pipe(gulp.dest('style/autoprefix.css'))
+        .pipe(gulp.dest('style/'))
 }
 
 function arquivo() {
